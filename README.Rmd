@@ -1,0 +1,73 @@
+---
+title: "README"
+author: "Guangkun Bao"
+date: "2020/9/12"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Computing Environment
+operating system : Windows 10
+R : version 4.0.2
+Rstudio : Version 1.2.5019
+
+Following the instruction from [*Compile Hadley’s Advanced R to a PDF*](http://brettklamer.com/diversions/statistical/compile-hadleys-advanced-r-programming-to-a-pdf/).
+
+In the progress, I've met several problems. The followings are the errors I've met.
+
+
+## Packages missing or need to be reinstall.
+
+The problematic packages is as follows:
+
+rlang, glue, ellipsis, vctrs, pillar, tibble, purrr, bookdown, lobstr, dplyr, tidyverse, RSQLite, profvis, bench, ggbeeswarm.
+
+solution: 
+Use 
+```{r, eval = FALSE}
+install.packages()
+```
+
+## Can't knit Introduction.Rmd
+
+Quitting from lines 223-235 (Introduction.Rmd) 
+
+solution:
+Adding `encoding = "UTF-8"` in line 224.
+
+## Warning message not shown correctly
+
+In [*Vectors.Rmd*] it use `as.integer(c("1", "1.5", "a"))` to illustrate failed coercion of strings can generates a warning and a missing value.
+
+However my system language is Chinese so the warning message can not be shown correctly.
+
+solution: 
+Use 
+```{r, eval = FALSE}
+Sys.setenv(LANGUAGE = "en")
+```
+
+## 'make' not found
+
+Warning message: In system(cmd) : 'make' not found
+
+solution:
+Install Rtools40(https://cran.r-project.org/bin/windows/Rtools/) and do it from R like so:
+```{r, eval = FALSE}
+writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")
+```
+
+## Fonts not found and some unknown mistake
+
+The problem started with font "Inconsolata" cannot be found.
+However, after download it from [*Google Fonts*](https://fonts.google.com/specimen/Inconsolata) and install it. The problem still exists.
+
+Then I try Miktex instead of TinyTex. This time the problem turned into: **"xelatex" not found**. Even if I add root directory into PATH.
+
+Finally, I try to combine Miktex and Tinytex and the problem turned into: `! xdvipdfmx:fatal: Invalid TTC index (not TTC font): C:/WINDOWS/fonts/Inconsolata-VariableFont_wdth,wght.ttf`. I tried to reinstall the font with Administrative Installation but the problem is not fixed.
+
+
+
